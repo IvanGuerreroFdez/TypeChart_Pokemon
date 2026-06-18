@@ -1,0 +1,231 @@
+:root{
+  --bg:#0f1115;
+  --panel:#171a21;
+  --panel-2:#1d2129;
+  --border:#2a2f3a;
+  --text:#e8e9ec;
+  --text-dim:#9aa1ad;
+  --accent:#5b8cff;
+  --danger:#e6493f;
+  --warn:#f0a830;
+  --ok:#6fcf67;
+  --good:#3fb6a8;
+  --immune:#7e8aa0;
+  --radius:10px;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+.app-header{
+  padding:20px 24px 10px;
+  text-align:center;
+}
+.app-header h1{margin:0;font-size:1.6rem;letter-spacing:.5px;}
+.subtitle{color:var(--text-dim);margin:4px 0 0;font-size:.9rem;}
+
+main{
+  max-width:1200px;
+  margin:0 auto;
+  padding:10px 16px 60px;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px;
+}
+.panel h2{
+  margin:0 0 12px;
+  font-size:1.1rem;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.panel h2 .count{
+  font-size:.8rem;
+  color:var(--text-dim);
+  font-weight:normal;
+}
+
+/* ---- Team grid ---- */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:12px;
+}
+.team-slot{
+  background:var(--panel-2);
+  border:1px dashed var(--border);
+  border-radius:var(--radius);
+  padding:10px;
+  min-height:70px;
+  position:relative;
+}
+.team-slot.filled{border-style:solid;}
+.team-slot .slot-filled{display:none;}
+.team-slot.filled .slot-filled{display:block;}
+.team-slot.filled .slot-search{display:none;}
+
+.slot-search,.move-search,.enemy-search{position:relative;}
+.slot-input,.move-input,#enemy-search-input{
+  width:100%;
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#11141a;
+  color:var(--text);
+  font-size:.9rem;
+}
+.slot-input:focus,.move-input:focus,#enemy-search-input:focus{outline:1px solid var(--accent);}
+
+.search-results{
+  position:absolute;
+  z-index:20;
+  top:100%;left:0;right:0;
+  max-height:260px;
+  overflow-y:auto;
+  background:#1b1f27;
+  border:1px solid var(--border);
+  border-radius:8px;
+  margin-top:4px;
+  display:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+.search-results.open{display:block;}
+.search-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  cursor:pointer;
+  font-size:.85rem;
+}
+.search-item:hover,.search-item.active{background:#262c38;}
+.search-item img{width:28px;height:28px;image-rendering:pixelated;}
+.search-item .sit-name{flex:1;}
+.search-item .type-badge{font-size:.65rem;padding:1px 6px;}
+
+.slot-remove{
+  position:absolute;top:6px;right:6px;
+  background:none;border:none;color:var(--text-dim);
+  font-size:1rem;cursor:pointer;line-height:1;
+}
+.slot-remove:hover{color:var(--danger);}
+.slot-sprite{width:56px;height:56px;image-rendering:pixelated;display:block;margin:0 auto;}
+.slot-name{text-align:center;font-weight:600;margin-top:2px;}
+.slot-types{display:flex;justify-content:center;gap:4px;margin:6px 0;flex-wrap:wrap;}
+
+.type-badge{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:6px;
+  font-size:.7rem;
+  font-weight:700;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+  text-shadow:0 1px 1px rgba(0,0,0,.35);
+}
+
+.slot-moves{margin-top:6px;}
+.moves-chosen{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
+.move-chip{
+  display:flex;align-items:center;gap:4px;
+  background:#262c38;border:1px solid var(--border);
+  border-radius:14px;padding:2px 4px 2px 8px;font-size:.75rem;
+}
+.move-chip button{
+  background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:.85rem;
+  padding:0 4px;
+}
+.move-chip button:hover{color:var(--danger);}
+.move-chip .mc-dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+/* ---- Enemy panel (minimal) ---- */
+.panel.minimal{padding:14px 16px;}
+.enemy-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:10px;
+  margin-top:10px;
+}
+.enemy-row{
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:6px 8px;
+  font-size:.85rem;
+}
+.enemy-row .er-top{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.er-sprite{width:30px;height:30px;image-rendering:pixelated;}
+.er-name{flex:1;}
+.er-types{display:flex;gap:3px;}
+.er-remove{
+  background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:1rem;
+  padding:0 4px;
+}
+.er-remove:hover{color:var(--danger);}
+.er-moves{margin-top:4px;}
+.er-moves .moves-chosen{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px;}
+.er-moves .move-input{font-size:.78rem;padding:5px 8px;}
+
+/* ---- Report ---- */
+.empty-hint{color:var(--text-dim);font-size:.9rem;}
+.report-content{display:flex;flex-direction:column;gap:18px;}
+.report-mon{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:12px;
+  background:var(--panel-2);
+}
+.report-mon h3{
+  margin:0 0 8px;
+  display:flex;align-items:center;gap:8px;font-size:1rem;
+}
+.report-mon h3 img{width:32px;height:32px;image-rendering:pixelated;}
+.report-section-title{font-size:.78rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;margin:10px 0 6px;}
+.matchup-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;}
+.matchup-row{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 8px;border-radius:8px;font-size:.85rem;
+  background:#141821;
+}
+.matchup-row img{width:24px;height:24px;image-rendering:pixelated;}
+.matchup-row .mult{
+  font-weight:800;min-width:46px;text-align:center;
+  padding:2px 6px;border-radius:6px;font-size:.8rem;
+}
+.matchup-row .mr-name{flex:1;}
+.matchup-row .mr-via{color:var(--text-dim);font-size:.78rem;}
+
+.mult-4{background:var(--danger);color:#fff;}
+.mult-2{background:var(--warn);color:#231a00;}
+.mult-05{background:var(--ok);color:#062600;}
+.mult-025{background:var(--good);color:#04201b;}
+.mult-0{background:var(--immune);color:#fff;}
+.mult-1{background:#2a2f3a;color:var(--text-dim);}
+
+.no-hits{color:var(--text-dim);font-size:.8rem;font-style:italic;}
+
+footer{
+  text-align:center;
+  color:var(--text-dim);
+  font-size:.75rem;
+  padding:20px 0 30px;
+}
+
+@media (max-width:520px){
+  .app-header h1{font-size:1.3rem;}
+}

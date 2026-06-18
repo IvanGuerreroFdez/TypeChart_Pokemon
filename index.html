@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TypeChart Pokémon — Calculadora de bloqueo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="app-header">
+  <h1>TypeChart Pokémon</h1>
+  <p class="subtitle">Tu equipo vs. equipo rival — matchups de tipo al instante</p>
+</header>
+
+<main>
+  <section class="panel" id="team-panel">
+    <h2>Tu equipo <span class="count" id="team-count">0/6</span></h2>
+    <div class="team-grid" id="team-grid"></div>
+  </section>
+
+  <section class="panel minimal" id="enemy-panel">
+    <h2>Equipo rival <span class="count" id="enemy-count">0/6</span></h2>
+    <div class="enemy-search">
+      <input type="text" id="enemy-search-input" placeholder="Buscar Pokémon (incluye megas, formas, gigamax…)" autocomplete="off">
+      <div class="search-results" id="enemy-search-results"></div>
+    </div>
+    <div class="enemy-list" id="enemy-list"></div>
+  </section>
+
+  <section class="panel" id="report-panel">
+    <h2>Matchups</h2>
+    <div id="report-empty" class="empty-hint">Añade Pokémon a tu equipo y al equipo rival para ver los matchups.</div>
+    <div id="report-content" class="report-content"></div>
+  </section>
+</main>
+
+<footer>
+  Datos de tipos, Pokémon y movimientos vía PokeAPI · Solo se muestran multiplicadores distintos de ×1
+</footer>
+
+<template id="tpl-enemy-row">
+  <div class="enemy-row">
+    <div class="er-top">
+      <img class="er-sprite" alt="">
+      <span class="er-name"></span>
+      <span class="er-types"></span>
+      <button class="er-remove" title="Quitar">×</button>
+    </div>
+    <div class="er-moves">
+      <div class="moves-chosen"></div>
+      <div class="move-search">
+        <input type="text" class="move-input" placeholder="Ataque conocido (máx. 4)…" autocomplete="off">
+        <div class="search-results"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-team-slot">
+  <div class="team-slot empty">
+    <div class="slot-search">
+      <input type="text" class="slot-input" placeholder="Buscar Pokémon…" autocomplete="off">
+      <div class="search-results"></div>
+    </div>
+    <div class="slot-filled">
+      <button class="slot-remove" title="Quitar">×</button>
+      <img class="slot-sprite" alt="">
+      <div class="slot-name"></div>
+      <div class="slot-types"></div>
+      <div class="slot-moves">
+        <div class="moves-chosen"></div>
+        <div class="move-search">
+          <input type="text" class="move-input" placeholder="Añadir ataque (máx. 4)…" autocomplete="off">
+          <div class="search-results move-search-results"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
