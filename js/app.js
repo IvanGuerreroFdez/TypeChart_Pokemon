@@ -28,14 +28,15 @@
       .replace(/[̀-ͯ]/g, "");
   }
 
-  // Pre-normalized search haystacks
+  // Pre-normalized search haystacks — include Spanish name, English name and
+  // slug (with hyphens turned into spaces) so searches work in either language.
   const POKEMON_SEARCH = DATA.pokemon.map((p) => ({
     p,
-    key: normalize(p.name + " " + p.slug),
+    key: normalize(p.name + " " + p.nameEn + " " + p.slug.replace(/-/g, " ")),
   }));
   const MOVE_SEARCH = DATA.moves.map((m) => ({
     m,
-    key: normalize(m.name + " " + m.slug),
+    key: normalize(m.name + " " + m.nameEn + " " + m.slug.replace(/-/g, " ")),
   }));
 
   function searchPokemon(query, limit) {

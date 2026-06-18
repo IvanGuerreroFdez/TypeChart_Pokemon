@@ -11,6 +11,7 @@ import os
 RAW = os.path.join(os.path.dirname(__file__), "raw")
 OUT = os.path.join(os.path.dirname(__file__), "..", "data")
 ES = "7"  # local_language_id for Spanish
+EN = "9"  # local_language_id for English
 
 os.makedirs(OUT, exist_ok=True)
 
@@ -60,9 +61,12 @@ with open(os.path.join(OUT, "type_chart.json"), "w", encoding="utf-8") as f:
 # Species names (Spanish) + flags
 # ---------------------------------------------------------------------------
 species_names_es = {}
+species_names_en = {}
 for r in read_csv("pokemon_species_names.csv"):
     if r["local_language_id"] == ES:
         species_names_es[r["pokemon_species_id"]] = r["name"]
+    elif r["local_language_id"] == EN:
+        species_names_en[r["pokemon_species_id"]] = r["name"]
 
 species_rows = {r["id"]: r for r in read_csv("pokemon_species.csv")}
 
@@ -171,6 +175,7 @@ for r in pokemon_rows:
         ):
             continue  # drop unofficial fan-made mega entries (e.g. "-mega-z")
     base_name = species_names_es.get(species_id, slug.replace("-", " ").title())
+    base_name_en = species_names_en.get(species_id, slug.replace("-", " ").title())
     species_slug = species_rows.get(species_id, {}).get("identifier", slug)
     is_default_form = slug == species_slug
     suffix = None if is_default_form else display_suffix(slug.replace(species_slug + "-", species_slug + "-", 1) if slug.startswith(species_slug) else slug)
@@ -180,6 +185,7 @@ for r in pokemon_rows:
         if suffix is None:
             suffix = " ".join(p.capitalize() for p in form_token.split("-"))
     display_name = base_name if is_default_form else f"{base_name} ({suffix})"
+    display_name_en = base_name_en if is_default_form else f"{base_name_en} ({slug[len(species_slug) + 1:].replace('-', ' ').title()})"
     if slug in seen_slugs:
         continue
     seen_slugs.add(slug)
@@ -188,6 +194,7 @@ for r in pokemon_rows:
         "slug": slug,
         "speciesSlug": species_slug,
         "name": display_name,
+        "nameEn": display_name_en,
         "types": poke_types[pid],
         "isMega": is_mega,
         "isGmax": is_gmax,
@@ -206,9 +213,12 @@ print(f"Pokemon entries: {len(pokemon_out)}")
 # Moves
 # ---------------------------------------------------------------------------
 move_names_es = {}
+move_names_en = {}
 for r in read_csv("move_names.csv"):
     if r["local_language_id"] == ES:
         move_names_es[r["move_id"]] = r["name"]
+    elif r["local_language_id"] == EN:
+        move_names_en[r["move_id"]] = r["name"]
 
 damage_classes = {r["id"]: r["identifier"] for r in read_csv("move_damage_class.csv")}
 
@@ -222,6 +232,7 @@ for r in read_csv("moves.csv"):
         "id": int(mid),
         "slug": r["identifier"],
         "name": move_names_es.get(mid, r["identifier"].replace("-", " ").title()),
+        "nameEn": move_names_en.get(mid, r["identifier"].replace("-", " ").title()),
         "type": int(r["type_id"]),
         "class": damage_classes.get(r["damage_class_id"], "status"),
         "power": int(r["power"]) if r["power"] else None,
