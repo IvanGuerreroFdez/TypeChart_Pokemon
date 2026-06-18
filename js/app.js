@@ -114,7 +114,7 @@
         .map((mid) => {
           const m = MOVES_BY_ID[mid];
           const color = TYPE_COLORS[TYPES_BY_ID[m.type].slug] || "#888";
-          return `<span class="move-chip" data-mid="${mid}"><span class="mc-dot" style="background:${color}"></span>${m.name}<button data-mid="${mid}">×</button></span>`;
+          return `<span class="move-chip" data-mid="${mid}"><span class="mc-dot" style="background:${color}"></span>${m.nameEn}<button data-mid="${mid}">×</button></span>`;
         })
         .join("");
       chosenEl.querySelectorAll("button").forEach((btn) => {
@@ -276,7 +276,7 @@
         const color = TYPE_COLORS[TYPES_BY_ID[m.type].slug] || "#888";
         return `<div class="search-item" data-id="${m.id}">
           <span class="mc-dot" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color}"></span>
-          <span class="sit-name">${m.name}</span>
+          <span class="sit-name">${m.nameEn}</span>
           <span class="type-badge" style="background:${color}">${TYPES_BY_ID[m.type].name}</span>
         </div>`;
       })
@@ -428,12 +428,12 @@
             (h) => `<li class="matchup-row">
               <img src="${h.enemy.sprite}" alt="">
               <span class="mr-name">${h.enemy.name}</span>
-              <span class="mr-via">con ${h.move.name}</span>
+              <span class="mr-via">con ${h.move.nameEn}</span>
               <span class="mult ${multClass(h.mult)}">${fmtMult(h.mult)}</span>
             </li>`
           )
           .join("")}</ul>`
-      : `<div class="no-hits">Apunta ataques concretos del rival (ej. "Rayo Hielo") para verlos aquí, incluso si son ×1.</div>`;
+      : `<div class="no-hits">Apunta ataques concretos del rival (ej. "Ice Beam") para verlos aquí, incluso si son ×1.</div>`;
 
     const offList = offHits.length
       ? `<ul class="matchup-list">${offHits
@@ -441,7 +441,7 @@
             (h) => `<li class="matchup-row">
               <img src="${h.enemy.sprite}" alt="">
               <span class="mr-name">${h.enemy.name}</span>
-              <span class="mr-via">con ${h.move.name}</span>
+              <span class="mr-via">con ${h.move.nameEn}</span>
               <span class="mult ${multClass(h.mult)}">${fmtMult(h.mult)}</span>
             </li>`
           )
